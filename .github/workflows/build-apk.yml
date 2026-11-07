@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -25,6 +26,10 @@ jobs:
         run: |
           mkdir extracted
           unzip -q *.zip -d extracted
+
+      - name: Fix Kotlin Source
+        run: |
+          sed -i 's/horizontalScrollBarEnabled/isHorizontalScrollBarEnabled/g' extracted/SB_MIXER_PRO_NATIVE_v1_2/app/src/main/java/com/sbmixer/pro/MainActivity.kt
 
       - name: Build APK
         run: |
